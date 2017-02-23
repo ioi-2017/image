@@ -7,7 +7,7 @@ set -e
 CONTESTANT_USERNAME=ioi2017
 
 
-#---- Initilization ----
+#---- Initilization
 
 # Update packages list and upgrade everything
 apt-get -y update
@@ -87,7 +87,7 @@ cp icon.png /usr/local/share/altgr/
 chmod +x /opt/*.sh
 
 
-#---- Create desktop entries and icons
+#---- Create desktop entries
 
 cd /usr/share/applications/
 
@@ -202,7 +202,8 @@ Categories=Documentation;STL;
 EOF
 
 
-# Create desktop icons
+#---- Create desktop icons
+
 for i in gedit codeblocks ddd emacs24 firefox geany gnome-calculator gnome-terminal gvim lazarus-1.6 mc org.kde.kate org.kde.konsole python2.7 python3.5 sublime_text vim code eclipse cpp-doc fp-doc java-doc python-doc stl-manual python3-doc disable_altgr enable_altgr
 do
 	cp $i.desktop /home/$CONTESTANT_USERNAME/Desktop
