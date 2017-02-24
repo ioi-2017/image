@@ -9,11 +9,13 @@ CONTESTANT_USERNAME=ioi2017
 
 #---- Initilization
 
+# Add missing repositories
+add-apt-repository -y ppa:damien-moore/codeblocks-stable
+
+
 # Update packages list
 apt-get -y update
 
-# Add missing repositories
-add-apt-repository -y ppa:damien-moore/codeblocks-stable
 
 # Upgrade everything if needed
 apt-get -y upgrade
@@ -206,12 +208,9 @@ EOF
 
 #---- Create desktop icons
 
-for i in gedit codeblocks ddd emacs24 firefox geany gnome-calculator gnome-terminal gvim lazarus-1.6 mc org.kde.kate org.kde.konsole python2.7 python3.5 sublime_text vim code eclipse cpp-doc fp-doc java-doc python-doc stl-manual python3-doc disable_altgr enable_altgr
+for i in gedit codeblocks ddd emacs24 firefox geany gnome-calculator gnome-terminal gvim lazarus-1.6 mc org.kde.kate org.kde.konsole python2.7 python3.5 sublime_text vim code eclipse cpp-doc fp-doc java-doc python-doc stl-manual python3-doc disable_altgr enable_altgr kde4/kdevelop
 do
 	cp $i.desktop /home/$CONTESTANT_USERNAME/Desktop
 done
-for i in kdevelop
-do
-	cp kde4/$i.desktop /home/$CONTESTANT_USERNAME/Desktop
-done
+
 chmod a+x /home/$CONTESTANT_USERNAME/Desktop/*.desktop
