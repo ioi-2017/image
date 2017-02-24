@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# install - bash script for builting IOI 2017 contestant image
+# install - bash script for building the IOI 2017 contestant image
 #
 
 set -e
@@ -9,12 +9,14 @@ CONTESTANT_USERNAME=ioi2017
 
 #---- Initilization
 
-# Update packages list and upgrade everything
+# Update packages list
 apt-get -y update
-apt-get -y upgrade
 
-# Add missin repositories
+# Add missing repositories
 add-apt-repository -y ppa:damien-moore/codeblocks-stable
+
+# Upgrade everything if needed
+apt-get -y upgrade
 
 
 #---- Install software from Ubuntu repositories
