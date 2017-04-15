@@ -8,11 +8,13 @@ CONTESTANT_USERNAME=ioi2017
 
 #---- Initilization
 
+# Add missing repositories
+add-apt-repository -y ppa:damien-moore/codeblocks-stable
+
+
 # Update packages list
 apt-get -y update
 
-# Add missing repositories
-add-apt-repository -y ppa:damien-moore/codeblocks-stable
 
 # Upgrade everything if needed
 apt-get -y upgrade
@@ -219,7 +221,6 @@ for i in cpp-doc  fp-doc  java-doc  python3-doc  python-doc  stl-manual
 do
     cp "$i.desktop" "/home/$CONTESTANT_USERNAME/Desktop/Docs"
 done
-
 
 # Copy Utils
 for i in ddd  disable_altgr  enable_altgr  gnome-calculator  gnome-terminal  mc  org.kde.konsole
