@@ -208,6 +208,10 @@ mkdir "/home/$CONTESTANT_USERNAME/Desktop/Editors & IDEs"
 mkdir "/home/$CONTESTANT_USERNAME/Desktop/Utils"
 mkdir "/home/$CONTESTANT_USERNAME/Desktop/Docs"
 
+chown $CONTESTANT_USERNAME "/home/$CONTESTANT_USERNAME/Desktop/Editors & IDEs"
+chown $CONTESTANT_USERNAME "/home/$CONTESTANT_USERNAME/Desktop/Utils"
+chown $CONTESTANT_USERNAME "/home/$CONTESTANT_USERNAME/Desktop/Docs"
+
 # Copy IDES and Editors
 for i in gedit codeblocks emacs24 geany lazarus-1.6 org.kde.kate sublime_text eclipse code vim gvim
 do
@@ -228,6 +232,6 @@ do
     cp "$i.desktop" "/home/$CONTESTANT_USERNAME/Desktop/Utils"
 done
 
-chmod a+x "/home/$CONTESTANT_USERNAME/Desktop/Editors & IDEs/*"
-chmod a+x "/home/$CONTESTANT_USERNAME/Desktop/Utils/*"
-chmod a+x "/home/$CONTESTANT_USERNAME/Desktop/Docs/*"
+chmod a+x "/home/$CONTESTANT_USERNAME/Desktop/Editors & IDEs"/*
+chmod a+x "/home/$CONTESTANT_USERNAME/Desktop/Utils"/*
+chmod a+x "/home/$CONTESTANT_USERNAME/Desktop/Docs"/*
