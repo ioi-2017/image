@@ -6,7 +6,6 @@
 set -e
 CONTESTANT_USERNAME=ioi2017
 
-
 #---- Initilization
 
 # Update packages list
@@ -203,15 +202,31 @@ Terminal=false
 Categories=Documentation;STL;
 EOF
 
+mkdir "/home/$CONTESTANT_USERNAME/Desktop/Editors & IDEs"
+mkdir "/home/$CONTESTANT_USERNAME/Desktop/Utils"
+mkdir "/home/$CONTESTANT_USERNAME/Desktop/Docs"
 
-#---- Create desktop icons
+# Copy IDES and Editors
+for i in gedit codeblocks emacs24 geany lazarus-1.6 org.kde.kate sublime_text eclipse code vim gvim
+do
+    cp "$i.desktop" "/home/$CONTESTANT_USERNAME/Desktop/Editors & IDEs"
+done
+cp "kde4/kdevelop.desktop" "/home/$CONTESTANT_USERNAME/Desktop"
 
-for i in gedit codeblocks ddd emacs24 firefox geany gnome-calculator gnome-terminal gvim lazarus-1.6 mc org.kde.kate org.kde.konsole python2.7 python3.5 sublime_text vim code eclipse cpp-doc fp-doc java-doc python-doc stl-manual python3-doc disable_altgr enable_altgr
+
+# Copy Docs
+for i in cpp-doc  fp-doc  java-doc  python3-doc  python-doc  stl-manual
 do
-	cp $i.desktop /home/$CONTESTANT_USERNAME/Desktop
+    cp "$i.desktop" "/home/$CONTESTANT_USERNAME/Desktop/Docs"
 done
-for i in kdevelop
+
+
+# Copy Utils
+for i in ddd  disable_altgr  enable_altgr  gnome-calculator  gnome-terminal  mc  org.kde.konsole
 do
-	cp kde4/$i.desktop /home/$CONTESTANT_USERNAME/Desktop
+    cp "$i.desktop" "/home/$CONTESTANT_USERNAME/Desktop/Utils"
 done
-chmod a+x /home/$CONTESTANT_USERNAME/Desktop/*.desktop
+
+chmod a+x "/home/$CONTESTANT_USERNAME/Desktop/Editors & IDEs/*"
+chmod a+x "/home/$CONTESTANT_USERNAME/Desktop/Utils/*"
+chmod a+x "/home/$CONTESTANT_USERNAME/Desktop/Docs/*"
