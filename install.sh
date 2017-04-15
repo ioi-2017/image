@@ -213,11 +213,10 @@ chown $CONTESTANT_USERNAME "/home/$CONTESTANT_USERNAME/Desktop/Utils"
 chown $CONTESTANT_USERNAME "/home/$CONTESTANT_USERNAME/Desktop/Docs"
 
 # Copy IDES and Editors
-for i in gedit codeblocks emacs24 geany lazarus-1.6 org.kde.kate sublime_text eclipse code vim gvim
+for i in gedit codeblocks emacs24 geany lazarus-1.6 org.kde.kate sublime_text eclipse code vim gvim kde4/kdevelop
 do
     cp "$i.desktop" "/home/$CONTESTANT_USERNAME/Desktop/Editors & IDEs"
 done
-cp "kde4/kdevelop.desktop" "/home/$CONTESTANT_USERNAME/Desktop"
 
 
 # Copy Docs
