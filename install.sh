@@ -1,26 +1,26 @@
 #!/bin/bash
-#
-# install - bash script for building the IOI 2017 contestant image
-#
+
+# Bash script for building IOI 2017 contestant image
+# Version: 1.0
+# http://ioi2017.org/
 
 set -e
-CONTESTANT_USERNAME=ioi2017
+USER=ioi2017
 
-#---- Initilization
+
+# ----- Initilization -----
 
 # Add missing repositories
 add-apt-repository -y ppa:damien-moore/codeblocks-stable
 
-
 # Update packages list
 apt-get -y update
-
 
 # Upgrade everything if needed
 apt-get -y upgrade
 
 
-#---- Install software from Ubuntu repositories
+# ----- Install software from Ubuntu repositories -----
 
 # IDEs, editors, debuggers, and documentations
 apt-get -y install codeblocks codeblocks-contrib emacs geany geany-plugins gedit vim-gnome joe kate kdevelop lazarus nano vim ddd mc libappindicator1 libindicator7 stl-manual konsole libvte9 valgrind 
@@ -32,7 +32,7 @@ apt-get -y install openjdk-8-jre openjdk-8-doc
 apt-get -y install fpc fp-docs
 
 
-#---- Install software not found in Ubuntu repositories
+# ----- Install software not found in Ubuntu repositories -----
 
 cd /tmp/
 
@@ -44,12 +44,12 @@ unzip html_book_20151129.zip -d /opt/cppref
 apt-get -y install git
 wget -O vscode-amd64.deb https://vscode-update.azurewebsites.net/latest/linux-deb-x64/stable
 dpkg -i vscode-amd64.deb
-sudo -H -u $CONTESTANT_USERNAME bash -c "mkdir -p /home/$CONTESTANT_USERNAME/.config/Code/User" 
+sudo -H -u $USER bash -c "mkdir -p /home/$USER/.config/Code/User" 
 
 # Visual Studio Code - extensions
-sudo -H -u $CONTESTANT_USERNAME bash -c "mkdir -p /home/$CONTESTANT_USERNAME/.vscode/extensions" 
-sudo -u $CONTESTANT_USERNAME bash -c "DISPLAY=:0 XAUTHORITY=/home/$CONTESTANT_USERNAME/.Xauthority HOME=/home/$CONTESTANT_USERNAME/ code --install-extension ms-vscode.cpptools"
-sudo -u $CONTESTANT_USERNAME bash -c "DISPLAY=:0 XAUTHORITY=/home/$CONTESTANT_USERNAME/.Xauthority HOME=/home/$CONTESTANT_USERNAME/ code --install-extension georgewfraser.vscode-javac"
+sudo -H -u $USER bash -c "mkdir -p /home/$USER/.vscode/extensions" 
+sudo -u $USER bash -c "DISPLAY=:0 XAUTHORITY=/home/$USER/.Xauthority HOME=/home/$USER/ code --install-extension ms-vscode.cpptools"
+sudo -u $USER bash -c "DISPLAY=:0 XAUTHORITY=/home/$USER/.Xauthority HOME=/home/$USER/ code --install-extension georgewfraser.vscode-javac"
 
 # Eclipse 4.6 and CDT plugins
 wget http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz
@@ -90,7 +90,7 @@ cp icon.png /usr/local/share/altgr/
 chmod +x /opt/*.sh
 
 
-#---- Create desktop entries
+# ----- Create desktop entries -----
 
 cd /usr/share/applications/
 
@@ -204,33 +204,32 @@ Terminal=false
 Categories=Documentation;STL;
 EOF
 
-mkdir "/home/$CONTESTANT_USERNAME/Desktop/Editors & IDEs"
-mkdir "/home/$CONTESTANT_USERNAME/Desktop/Utils"
-mkdir "/home/$CONTESTANT_USERNAME/Desktop/Docs"
+mkdir "/home/$USER/Desktop/Editors & IDEs"
+mkdir "/home/$USER/Desktop/Utils"
+mkdir "/home/$USER/Desktop/Docs"
 
-chown $CONTESTANT_USERNAME "/home/$CONTESTANT_USERNAME/Desktop/Editors & IDEs"
-chown $CONTESTANT_USERNAME "/home/$CONTESTANT_USERNAME/Desktop/Utils"
-chown $CONTESTANT_USERNAME "/home/$CONTESTANT_USERNAME/Desktop/Docs"
+chown $USER "/home/$USER/Desktop/Editors & IDEs"
+chown $USER "/home/$USER/Desktop/Utils"
+chown $USER "/home/$USER/Desktop/Docs"
 
-# Copy IDES and Editors
+# Copy Editors and IDEs 
 for i in gedit codeblocks emacs24 geany lazarus-1.6 org.kde.kate sublime_text eclipse code vim gvim kde4/kdevelop
 do
-    cp "$i.desktop" "/home/$CONTESTANT_USERNAME/Desktop/Editors & IDEs"
+    cp "$i.desktop" "/home/$USER/Desktop/Editors & IDEs"
 done
 
-
 # Copy Docs
-for i in cpp-doc  fp-doc  java-doc  python3-doc  python-doc  stl-manual
+for i in cpp-doc fp-doc java-doc python3-doc python-doc stl-manual
 do
-    cp "$i.desktop" "/home/$CONTESTANT_USERNAME/Desktop/Docs"
+    cp "$i.desktop" "/home/$USER/Desktop/Docs"
 done
 
 # Copy Utils
-for i in ddd  disable_altgr  enable_altgr  gnome-calculator  gnome-terminal  mc  org.kde.konsole
+for i in ddd disable_altgr enable_altgr gnome-calculator gnome-terminal mc org.kde.konsole
 do
-    cp "$i.desktop" "/home/$CONTESTANT_USERNAME/Desktop/Utils"
+    cp "$i.desktop" "/home/$USER/Desktop/Utils"
 done
 
-chmod a+x "/home/$CONTESTANT_USERNAME/Desktop/Editors & IDEs"/*
-chmod a+x "/home/$CONTESTANT_USERNAME/Desktop/Utils"/*
-chmod a+x "/home/$CONTESTANT_USERNAME/Desktop/Docs"/*
+chmod a+x "/home/$USER/Desktop/Editors & IDEs"/*
+chmod a+x "/home/$USER/Desktop/Utils"/*
+chmod a+x "/home/$USER/Desktop/Docs"/*
