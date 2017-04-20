@@ -31,6 +31,13 @@ apt-get -y install openjdk-8-jdk openjdk-8-doc
 # FreePascal
 apt-get -y install fpc fp-docs
 
+# Install Python
+apt-get -y install python2.7 python2.7-doc
+apt-get -y install python3 python3-doc
+
+# Install Ruby
+apt-get -y install ruby
+
 
 # ----- Install software not found in Ubuntu repositories -----
 
