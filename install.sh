@@ -38,6 +38,9 @@ apt-get -y install python3 python3-doc
 # Install Ruby
 apt-get -y install ruby
 
+sudo gem install rdoc-data
+sudo rdoc-data --install
+
 
 # ----- Install software not found in Ubuntu repositories -----
 
