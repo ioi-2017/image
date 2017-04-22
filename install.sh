@@ -26,7 +26,7 @@ apt-get -y upgrade
 apt-get -y install codeblocks codeblocks-contrib emacs geany geany-plugins gedit vim-gnome joe kate kdevelop lazarus nano vim ddd mc libappindicator1 libindicator7 stl-manual konsole libvte9 valgrind 
 
 # OpenJDK 
-apt-get -y install openjdk-8-jdk openjdk-8-doc openjdk-8-source
+apt-get -y install openjdk-8-jdk openjdk-8-doc openjdk-8-source visualvm
 
 # FreePascal
 apt-get -y install fpc fp-docs
