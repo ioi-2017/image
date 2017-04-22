@@ -1,14 +1,13 @@
 #!/bin/bash
-
-# Bash script for building IOI 2017 contestant image
-# Version: 1.0
-# http://ioi2017.org/
+#
+# install - bash script for building the IOI 2017 contestant image
+#
 
 set -e
-USER=ioi2017
+CONTESTANT_USERNAME=ioi2017
 
 
-# ----- Initilization -----
+#---- Initilization
 
 # Add missing repositories
 add-apt-repository -y ppa:damien-moore/codeblocks-stable
@@ -20,26 +19,19 @@ apt-get -y update
 apt-get -y upgrade
 
 
-# ----- Install software from Ubuntu repositories -----
+#---- Install software from Ubuntu repositories
 
 # IDEs, editors, debuggers, and documentations
-apt-get -y install codeblocks codeblocks-contrib emacs geany geany-plugins gedit vim-gnome joe kate kdevelop lazarus nano vim ddd mc libappindicator1 libindicator7 stl-manual konsole libvte9 valgrind 
+apt-get -y install codeblocks codeblocks-contrib emacs geany geany-plugins gedit vim-gnome joe kate kdevelop lazarus nano vim ddd mc libappindicator1 libindicator7 stl-manual konsole libvte9 valgrind
 
-# OpenJDK 
-apt-get -y install openjdk-8-jdk openjdk-8-doc openjdk-8-source
+# OpenJDK
+apt-get -y install openjdk-8-jre openjdk-8-doc
 
 # FreePascal
 apt-get -y install fpc fp-docs
 
-# Install Python
-apt-get -y install python2.7 python2.7-doc
-apt-get -y install python3 python3-doc
 
-# Install Ruby
-apt-get -y install ruby
-
-
-# ----- Install software not found in Ubuntu repositories -----
+#---- Install software not found in Ubuntu repositories
 
 cd /tmp/
 
@@ -51,17 +43,17 @@ unzip html_book_20151129.zip -d /opt/cppref
 apt-get -y install git
 wget -O vscode-amd64.deb https://vscode-update.azurewebsites.net/latest/linux-deb-x64/stable
 dpkg -i vscode-amd64.deb
-sudo -H -u $USER bash -c "mkdir -p /home/$USER/.config/Code/User" 
+sudo -H -u $CONTESTANT_USERNAME bash -c "mkdir -p /home/$CONTESTANT_USERNAME/.config/Code/User"
 
 # Visual Studio Code - extensions
-sudo -H -u $USER bash -c "mkdir -p /home/$USER/.vscode/extensions" 
-sudo -u $USER bash -c "DISPLAY=:0 XAUTHORITY=/home/$USER/.Xauthority HOME=/home/$USER/ code --install-extension ms-vscode.cpptools"
-sudo -u $USER bash -c "DISPLAY=:0 XAUTHORITY=/home/$USER/.Xauthority HOME=/home/$USER/ code --install-extension georgewfraser.vscode-javac"
+sudo -H -u $CONTESTANT_USERNAME bash -c "mkdir -p /home/$CONTESTANT_USERNAME/.vscode/extensions"
+sudo -u $CONTESTANT_USERNAME bash -c "DISPLAY=:0 XAUTHORITY=/home/$CONTESTANT_USERNAME/.Xauthority HOME=/home/$CONTESTANT_USERNAME/ code --install-extension ms-vscode.cpptools"
+sudo -u $CONTESTANT_USERNAME bash -c "DISPLAY=:0 XAUTHORITY=/home/$CONTESTANT_USERNAME/.Xauthority HOME=/home/$CONTESTANT_USERNAME/ code --install-extension georgewfraser.vscode-javac"
 
 # Eclipse 4.6 and CDT plugins
 wget http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz
 tar xzvf eclipse-java-neon-2-linux-gtk-x86_64.tar.gz -C /opt/
-mv /opt/eclipse /opt/eclipse-4.6 
+mv /opt/eclipse /opt/eclipse-4.6
 /opt/eclipse-4.6/eclipse -application org.eclipse.equinox.p2.director -noSplash -repository http://download.eclipse.org/releases/neon \
 -installIUs \
 org.eclipse.cdt.feature.group,\
@@ -97,7 +89,7 @@ cp icon.png /usr/local/share/altgr/
 chmod +x /opt/*.sh
 
 
-# ----- Create desktop entries -----
+#---- Create desktop entries
 
 cd /usr/share/applications/
 
@@ -131,7 +123,7 @@ Comment=Eclipse Integrated Development Environment
 Icon=/opt/eclipse-4.6/icon.xpm
 Exec=eclipse
 Terminal=false
-Categories=Development;IDE;Java; 
+Categories=Development;IDE;Java;
 EOF
 
 cat << EOF > disable_altgr.desktop
@@ -142,7 +134,7 @@ Comment=Disable AltGr
 Exec=/opt/disable_altgr.sh
 Icon=/usr/local/share/altgr/icon.png
 Terminal=true
-Categories=AltGr; 
+Categories=AltGr;
 EOF
 
 cat << EOF > enable_altgr.desktop
@@ -153,7 +145,7 @@ Comment=Enable AltGr
 Exec=/opt/enable_altgr.sh
 Icon=/usr/local/share/altgr/icon.png
 Terminal=true
-Categories=AltGr; 
+Categories=AltGr;
 EOF
 
 cat << EOF > cpp-doc.desktop
@@ -211,32 +203,22 @@ Terminal=false
 Categories=Documentation;STL;
 EOF
 
-mkdir "/home/$USER/Desktop/Editors & IDEs"
-mkdir "/home/$USER/Desktop/Utils"
-mkdir "/home/$USER/Desktop/Docs"
 
-chown $USER "/home/$USER/Desktop/Editors & IDEs"
-chown $USER "/home/$USER/Desktop/Utils"
-chown $USER "/home/$USER/Desktop/Docs"
+#---- Create desktop icons
 
-# Copy Editors and IDEs 
-for i in gedit codeblocks emacs24 geany lazarus-1.6 org.kde.kate sublime_text eclipse code vim gvim kde4/kdevelop
+for i in gedit codeblocks ddd emacs24 geany gnome-calculator gnome-terminal gvim lazarus-1.6 mc org.kde.kate org.kde.konsole python2.7 python3.5 sublime_text vim code eclipse cpp-doc fp-doc java-doc python-doc stl-manual python3-doc disable_altgr enable_altgr
 do
-    cp "$i.desktop" "/home/$USER/Desktop/Editors & IDEs"
+	cp $i.desktop /home/$CONTESTANT_USERNAME/Desktop
 done
-
-# Copy Docs
-for i in cpp-doc fp-doc java-doc python3-doc python-doc stl-manual
+for i in kdevelop
 do
-    cp "$i.desktop" "/home/$USER/Desktop/Docs"
+	cp kde4/$i.desktop /home/$CONTESTANT_USERNAME/Desktop
 done
+chmod a+x /home/$CONTESTANT_USERNAME/Desktop/*.desktop
 
-# Copy Utils
-for i in ddd disable_altgr enable_altgr gnome-calculator gnome-terminal mc org.kde.konsole
-do
-    cp "$i.desktop" "/home/$USER/Desktop/Utils"
-done
+gsettings set com.canonical.Unity.Launcher favorites "['application://ubiquity.desktop','application://org.gnome.Nautilus.desktop','application://firefox.desktop','application://unity-control-center.desktop','unity://running-apps','unity://expo-icon','unity://devices']"
 
-chmod a+x "/home/$USER/Desktop/Editors & IDEs"/*
-chmod a+x "/home/$USER/Desktop/Utils"/*
-chmod a+x "/home/$USER/Desktop/Docs"/*
+wget http://ioi2017.org/files/htc/desktop.png -O /opt/desktop.png
+gsettings set org.gnome.desktop.background primary-color "#000000000000"
+gsettings set org.gnome.desktop.background picture-options "spanned"
+gsettings set org.gnome.desktop.background picture-uri "file:///opt/desktop.png"
