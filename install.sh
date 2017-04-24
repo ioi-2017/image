@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Bash script for building IOI 2017 contestant image
+# Bash script for building the IOI 2017 contest image
 # Version: 1.0
 # http://ioi2017.org/
 
@@ -22,21 +22,24 @@ apt-get -y upgrade
 
 # ----- Install software from Ubuntu repositories -----
 
-# IDEs, editors, debuggers, and documentations
-apt-get -y install codeblocks codeblocks-contrib emacs geany geany-plugins gedit vim-gnome joe kate kdevelop lazarus nano vim ddd mc libappindicator1 libindicator7 stl-manual konsole libvte9 valgrind 
+## Compilers
+apt-get -y install gcc-5 g++-5 openjdk-8-jdk openjdk-8-source fpc
 
-# OpenJDK 
-apt-get -y install openjdk-8-jdk openjdk-8-doc openjdk-8-source
+## IDEs and Editors
+apt-get -y install codeblocks codeblocks-contrib emacs geany geany-plugins
+apt-get -y install gedit vim-gnome vim joe kate kdevelop lazarus nano
 
-# FreePascal
-apt-get -y install fpc fp-docs
+## Debuggers
+apt-get -y install ddd libappindicator1 libindicator7 libvte9 valgrind visualvm
 
-# Install Python
-apt-get -y install python2.7 python2.7-doc
-apt-get -y install python3 python3-doc
+## Interpreters
+apt-get -y install python2.7 python3 ruby
 
-# Install Ruby
-apt-get -y install ruby
+## Documentation
+apt-get -y install stl-manual openjdk-8-doc fp-docs python2.7-doc python3-doc
+
+## Other Software
+apt-get -y install firefox konsole mc
 
 
 # ----- Install software not found in Ubuntu repositories -----
@@ -51,17 +54,17 @@ unzip html_book_20151129.zip -d /opt/cppref
 apt-get -y install git
 wget -O vscode-amd64.deb https://vscode-update.azurewebsites.net/latest/linux-deb-x64/stable
 dpkg -i vscode-amd64.deb
-sudo -H -u $USER bash -c "mkdir -p /home/$USER/.config/Code/User" 
+sudo -H -u $USER bash -c "mkdir -p /home/$USER/.config/Code/User"
 
 # Visual Studio Code - extensions
-sudo -H -u $USER bash -c "mkdir -p /home/$USER/.vscode/extensions" 
+sudo -H -u $USER bash -c "mkdir -p /home/$USER/.vscode/extensions"
 sudo -u $USER bash -c "DISPLAY=:0 XAUTHORITY=/home/$USER/.Xauthority HOME=/home/$USER/ code --install-extension ms-vscode.cpptools"
 sudo -u $USER bash -c "DISPLAY=:0 XAUTHORITY=/home/$USER/.Xauthority HOME=/home/$USER/ code --install-extension georgewfraser.vscode-javac"
 
 # Eclipse 4.6 and CDT plugins
 wget http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz
 tar xzvf eclipse-java-neon-2-linux-gtk-x86_64.tar.gz -C /opt/
-mv /opt/eclipse /opt/eclipse-4.6 
+mv /opt/eclipse /opt/eclipse-4.6
 /opt/eclipse-4.6/eclipse -application org.eclipse.equinox.p2.director -noSplash -repository http://download.eclipse.org/releases/neon \
 -installIUs \
 org.eclipse.cdt.feature.group,\
@@ -131,7 +134,7 @@ Comment=Eclipse Integrated Development Environment
 Icon=/opt/eclipse-4.6/icon.xpm
 Exec=eclipse
 Terminal=false
-Categories=Development;IDE;Java; 
+Categories=Development;IDE;Java;
 EOF
 
 cat << EOF > disable_altgr.desktop
@@ -142,7 +145,7 @@ Comment=Disable AltGr
 Exec=/opt/disable_altgr.sh
 Icon=/usr/local/share/altgr/icon.png
 Terminal=true
-Categories=AltGr; 
+Categories=AltGr;
 EOF
 
 cat << EOF > enable_altgr.desktop
@@ -153,7 +156,7 @@ Comment=Enable AltGr
 Exec=/opt/enable_altgr.sh
 Icon=/usr/local/share/altgr/icon.png
 Terminal=true
-Categories=AltGr; 
+Categories=AltGr;
 EOF
 
 cat << EOF > cpp-doc.desktop
@@ -219,7 +222,7 @@ chown $USER "/home/$USER/Desktop/Editors & IDEs"
 chown $USER "/home/$USER/Desktop/Utils"
 chown $USER "/home/$USER/Desktop/Docs"
 
-# Copy Editors and IDEs 
+# Copy Editors and IDEs
 for i in gedit codeblocks emacs24 geany lazarus-1.6 org.kde.kate sublime_text eclipse code vim gvim kde4/kdevelop
 do
     cp "$i.desktop" "/home/$USER/Desktop/Editors & IDEs"
