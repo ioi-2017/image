@@ -22,23 +22,23 @@ apt-get -y upgrade
 
 # ----- Install software from Ubuntu repositories -----
 
-## Compilers
+# Compilers
 apt-get -y install gcc-5 g++-5 openjdk-8-jdk openjdk-8-source fpc
 
-## IDEs and Editors
+# Editors and IDEs
 apt-get -y install codeblocks codeblocks-contrib emacs geany geany-plugins
 apt-get -y install gedit vim-gnome vim joe kate kdevelop lazarus nano
 
-## Debuggers
+# Debuggers
 apt-get -y install ddd libappindicator1 libindicator7 libvte9 valgrind visualvm
 
-## Interpreters
+# Interpreters
 apt-get -y install python2.7 python3 ruby
 
-## Documentation
+# Documentation
 apt-get -y install stl-manual openjdk-8-doc fp-docs python2.7-doc python3-doc
 
-## Other Software
+# Other Software
 apt-get -y install firefox konsole mc
 
 
@@ -90,13 +90,10 @@ wget http://ioi2017.org/files/htc/C++.sublime-package
 mv C++.sublime-package /opt/sublime_text/Packages
 
 # AltGr
-wget http://ioi2017.org/files/htc/icon.png
-wget http://ioi2017.org/files/htc/enable_altgr.sh
-wget http://ioi2017.org/files/htc/disable_altgr.sh
-cp enable_altgr.sh /opt/
-cp disable_altgr.sh /opt/
 mkdir -p /usr/local/share/altgr/
-cp icon.png /usr/local/share/altgr/
+wget http://ioi2017.org/files/htc/icon.png -O /usr/local/share/altgr/icon.png
+wget http://ioi2017.org/files/htc/enable_altgr.sh -O /opt/enable_altgr.sh
+wget http://ioi2017.org/files/htc/disable_altgr.sh -O /opt/disable_altgr.sh
 chmod +x /opt/*.sh
 
 
