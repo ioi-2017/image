@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Bash script for building the IOI 2017 contest image
-# Version: 1.0
+# Version: 1.1
 # http://ioi2017.org/
 
 set -e
@@ -33,10 +33,10 @@ apt-get -y install gedit vim-gnome vim joe kate kdevelop lazarus nano
 apt-get -y install ddd libappindicator1 libindicator7 libvte9 valgrind visualvm
 
 # Interpreters
-apt-get -y install python2.7 python3 ruby
+apt-get -y install python2.7 python3.5 ruby
 
 # Documentation
-apt-get -y install stl-manual openjdk-8-doc fp-docs python2.7-doc python3-doc
+apt-get -y install stl-manual openjdk-8-doc fp-docs python2.7-doc python3.5-doc
 
 # Other Software
 apt-get -y install firefox konsole mc
@@ -101,7 +101,7 @@ chmod +x /opt/*.sh
 
 cd /usr/share/applications/
 
-cat << EOF > python3-doc.desktop
+cat << EOF > python3.5-doc.desktop
 [Desktop Entry]
 Type=Application
 Name=Python 3.5 Documentation
@@ -109,7 +109,7 @@ Comment=Python 3.5 Documentation
 Icon=firefox
 Exec=firefox /usr/share/doc/python3.5/html/index.html
 Terminal=false
-Categories=Documentation;Python3;
+Categories=Documentation;Python3.5;
 EOF
 
 cat << EOF > python2.7-doc.desktop
@@ -189,17 +189,6 @@ Terminal=false
 Categories=Documentation;Java;
 EOF
 
-cat << EOF > python-doc.desktop
-[Desktop Entry]
-Type=Application
-Name=Python 2.7 Documentation
-Comment=Python 2.7 Documentation
-Icon=firefox
-Exec=firefox /usr/share/doc/python-doc/html/index.html
-Terminal=false
-Categories=Documentation;Python2;
-EOF
-
 cat << EOF > stl-manual.desktop
 [Desktop Entry]
 Type=Application
@@ -226,7 +215,7 @@ do
 done
 
 # Copy Docs
-for i in cpp-doc fp-doc java-doc python3-doc python-doc stl-manual
+for i in cpp-doc stl-manual java-doc fp-doc python2.7-doc python3.5-doc
 do
     cp "$i.desktop" "/home/$USER/Desktop/Docs"
 done
