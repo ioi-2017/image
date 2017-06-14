@@ -11,7 +11,7 @@ cp /etc/resolv.conf edit/etc/
 
 mount --bind /dev/ edit/dev
 
-cp -r files/ edit/files/
+cp -rL files/ edit/files/
 
 # Run 
 chroot edit /bin/bash /files/setup.sh
