@@ -241,7 +241,7 @@ chmod a+x "$HOME/Desktop/Docs"/*
 
 # Set desktop settings
 apt-get install -y xvfb
-xvfb-run gsettings set com.canonical.Unity.Launcher favorites "['application://ubiquity.desktop','application://org.gnome.Nautilus.desktop','application://firefox.desktop','application://unity-control-center.desktop','unity://running-apps','unity://expo-icon']"
+#xvfb-run gsettings set com.canonical.Unity.Launcher favorites "['application://ubiquity.desktop','application://org.gnome.Nautilus.desktop','application://firefox.desktop','application://unity-control-center.desktop','unity://running-apps','unity://expo-icon']"
 xvfb-run gsettings set org.gnome.desktop.background primary-color "#000000000000"
 xvfb-run gsettings set org.gnome.desktop.background picture-options "spanned"
 xvfb-run gsettings set org.gnome.desktop.background picture-uri "file:///opt/wallpaper.png"

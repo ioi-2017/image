@@ -11,15 +11,12 @@ cp /etc/resolv.conf edit/etc/
 
 mount --bind /dev/ edit/dev
 
-cp setup.sh edit/
-cp install.sh edit/
-cp wallpaper.png edit/opt/
+cp -r files/ edit/files/
 
 # Run 
-chroot edit /bin/bash /setup.sh
+chroot edit /bin/bash /files/setup.sh
 
-rm edit/setup.sh
-rm edit/install.sh
+rm -rf edit/files
 
 umount edit/dev
 

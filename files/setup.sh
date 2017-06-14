@@ -12,7 +12,8 @@ ln -s /bin/true /sbin/initctl
 
 # Uncomment to drop to shell instead
 #bash
-sh /install.sh
+cp /files/wallpaper.png /opt/
+sh /files/install.sh
 
 apt-get autoremove -y && apt-get autoclean -y
 apt-get clean
