@@ -13,6 +13,9 @@ ln -s /bin/true /sbin/initctl
 # Uncomment to drop to shell instead
 #bash
 cp /files/wallpaper.png /opt/
+patch /usr/share/glib-2.0/schemas/com.canonical.Unity.gschema.xml </files/unity.patch
+glib-compile-schemas /usr/share/glib-2.0/schemas
+
 sh /files/install.sh
 
 apt-get autoremove -y && apt-get autoclean -y
