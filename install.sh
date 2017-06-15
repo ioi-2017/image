@@ -232,7 +232,7 @@ do
 done
 
 # Copy Utils
-for i in ddd disable_altgr enable_altgr gnome-calculator gnome-terminal mc org.kde.konsole
+for i in ddd disable_altgr enable_altgr gnome-calculator gnome-terminal mc org.kde.konsole visualvm
 do
     cp "$i.desktop" "$HOME/Desktop/Utils"
 done
