@@ -1,17 +1,20 @@
 #!/bin/bash
 
 # Bash script for building the IOI 2017 contest image
-# Version: 1.1
+# Version: 1.4
 # http://ioi2017.org/
 
-set -e
-USER=ioi2017
+set -xe
 
+export USER=ioi2017
+export HOME=/home/$USER
 
 # ----- Initilization -----
 
 # Add missing repositories
 add-apt-repository -y ppa:damien-moore/codeblocks-stable
+apt-add-repository -y ppa:mmk2410/intellij-idea
+
 
 # Update packages list
 apt-get -y update
@@ -28,6 +31,7 @@ apt-get -y install gcc-5 g++-5 openjdk-8-jdk openjdk-8-source fpc
 # Editors and IDEs
 apt-get -y install codeblocks codeblocks-contrib emacs geany geany-plugins
 apt-get -y install gedit vim-gnome vim joe kate kdevelop lazarus nano
+apt-get -y install intellij-idea-community
 
 # Debuggers
 apt-get -y install ddd libappindicator1 libindicator7 libvte9 valgrind visualvm
@@ -54,12 +58,12 @@ unzip html_book_20151129.zip -d /opt/cppref
 apt-get -y install git
 wget -O vscode-amd64.deb https://vscode-update.azurewebsites.net/latest/linux-deb-x64/stable
 dpkg -i vscode-amd64.deb
-sudo -H -u $USER bash -c "mkdir -p /home/$USER/.config/Code/User"
+su $USER -c "mkdir -p $HOME/.config/Code/User"
 
 # Visual Studio Code - extensions
-sudo -H -u $USER bash -c "mkdir -p /home/$USER/.vscode/extensions"
-sudo -u $USER bash -c "DISPLAY=:0 XAUTHORITY=/home/$USER/.Xauthority HOME=/home/$USER/ code --install-extension ms-vscode.cpptools"
-sudo -u $USER bash -c "DISPLAY=:0 XAUTHORITY=/home/$USER/.Xauthority HOME=/home/$USER/ code --install-extension georgewfraser.vscode-javac"
+su $USER -c "mkdir -p $HOME/.vscode/extensions"
+su $USER -c "HOME=$HOME code --user-data-dir=$HOME/.config/Code/ --install-extension ms-vscode.cpptools"
+su $USER -c "HOME=$HOME code --user-data-dir=$HOME/.config/Code/ --install-extension georgewfraser.vscode-javac"
 
 # Eclipse 4.6 and CDT plugins
 wget http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz
@@ -200,32 +204,41 @@ Terminal=false
 Categories=Documentation;STL;
 EOF
 
-mkdir "/home/$USER/Desktop/Editors & IDEs"
-mkdir "/home/$USER/Desktop/Utils"
-mkdir "/home/$USER/Desktop/Docs"
+mkdir -p "$HOME/Desktop/Editors & IDEs"
+mkdir -p "$HOME/Desktop/Utils"
+mkdir -p "$HOME/Desktop/Docs"
 
-chown $USER "/home/$USER/Desktop/Editors & IDEs"
-chown $USER "/home/$USER/Desktop/Utils"
-chown $USER "/home/$USER/Desktop/Docs"
+chown $USER "$HOME/Desktop/Editors & IDEs"
+chown $USER "$HOME/Desktop/Utils"
+chown $USER "$HOME/Desktop/Docs"
 
 # Copy Editors and IDEs
-for i in gedit codeblocks emacs24 geany lazarus-1.6 org.kde.kate sublime_text eclipse code vim gvim kde4/kdevelop
+for i in gedit codeblocks emacs24 geany lazarus-1.6 org.kde.kate sublime_text eclipse code vim gvim kde4/kdevelop intellij-idea-community
 do
-    cp "$i.desktop" "/home/$USER/Desktop/Editors & IDEs"
+    cp "$i.desktop" "$HOME/Desktop/Editors & IDEs"
 done
 
 # Copy Docs
 for i in cpp-doc stl-manual java-doc fp-doc python2.7-doc python3.5-doc
 do
-    cp "$i.desktop" "/home/$USER/Desktop/Docs"
+    cp "$i.desktop" "$HOME/Desktop/Docs"
 done
 
 # Copy Utils
-for i in ddd disable_altgr enable_altgr gnome-calculator gnome-terminal mc org.kde.konsole
+for i in ddd disable_altgr enable_altgr gnome-calculator gnome-terminal mc org.kde.konsole visualvm
 do
-    cp "$i.desktop" "/home/$USER/Desktop/Utils"
+    cp "$i.desktop" "$HOME/Desktop/Utils"
 done
 
-chmod a+x "/home/$USER/Desktop/Editors & IDEs"/*
-chmod a+x "/home/$USER/Desktop/Utils"/*
-chmod a+x "/home/$USER/Desktop/Docs"/*
+chmod a+x "$HOME/Desktop/Editors & IDEs"/*
+chmod a+x "$HOME/Desktop/Utils"/*
+chmod a+x "$HOME/Desktop/Docs"/*
+
+
+# Set desktop settings
+apt-get install -y xvfb
+wget -O /opt/wallpaper.png "http://ioi2017.org/files/htc/desktop.png"
+xvfb-run gsettings set org.gnome.desktop.background primary-color "#000000000000"
+xvfb-run gsettings set org.gnome.desktop.background picture-options "spanned"
+xvfb-run gsettings set org.gnome.desktop.background picture-uri "file:///opt/wallpaper.png"
+
