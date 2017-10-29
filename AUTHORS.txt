@@ -1,0 +1,10 @@
+MAIN AUTHORS (with push rights on GIT repository)
+
+Farzad Abdolhosseini <farzad.abdolhosseini@gmail.com>
+Mehran Kholdi <semekh@hamravesh.com>
+Mohammad Razeghi <razeghi71@gmail.com>
+Hamid Zarrabi-Zadeh <zarrabi@sharif.edu>
+
+OTHER CONTRIBUTORS
+
+Kian Mirjalali <mirjalali@gmail.com>

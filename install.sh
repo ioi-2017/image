@@ -255,7 +255,7 @@ chmod a+x "$HOME/Desktop/Docs"/*
 apt-get install -y xvfb
 if [ -z $LIVE_BUILD ]
 then
-    wget -O /opt/wallpaper.png "http://ioi2017.org/files/htc/desktop.png"
+    wget -O /opt/wallpaper.png "http://ioi2017.org/files/htc/wallpaper.png"
 fi
 xvfb-run gsettings set org.gnome.desktop.background primary-color "#000000000000"
 xvfb-run gsettings set org.gnome.desktop.background picture-options "spanned"
