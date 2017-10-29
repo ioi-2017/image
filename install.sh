@@ -4,12 +4,27 @@
 # Version: 1.4
 # http://ioi2017.org/
 
+
 set -xe
 
-export USER=ioi2017
-export HOME=/home/$USER
+if [ -z $LIVE_BUILD ]
+then
+    export USER=ioi2017
+    export HOME=/home/$USER
+else
+    export USER=root
+    export HOME=/etc/skel
+fi
+
 
 # ----- Initilization -----
+
+cat << EOF >/etc/apt/sources.list
+deb http://archive.ubuntu.com/ubuntu/ xenial main restricted universe
+deb http://security.ubuntu.com/ubuntu/ xenial-security main restricted universe
+deb http://archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe
+EOF
+
 
 # Add missing repositories
 add-apt-repository -y ppa:damien-moore/codeblocks-stable
@@ -18,6 +33,7 @@ apt-add-repository -y ppa:mmk2410/intellij-idea
 
 # Update packages list
 apt-get -y update
+apt-get -y purge thunderbird example-content
 
 # Upgrade everything if needed
 apt-get -y upgrade
@@ -237,8 +253,10 @@ chmod a+x "$HOME/Desktop/Docs"/*
 
 # Set desktop settings
 apt-get install -y xvfb
-wget -O /opt/wallpaper.png "http://ioi2017.org/files/htc/desktop.png"
+if [ -z $LIVE_BUILD ]
+then
+    wget -O /opt/wallpaper.png "http://ioi2017.org/files/htc/desktop.png"
+fi
 xvfb-run gsettings set org.gnome.desktop.background primary-color "#000000000000"
 xvfb-run gsettings set org.gnome.desktop.background picture-options "spanned"
 xvfb-run gsettings set org.gnome.desktop.background picture-uri "file:///opt/wallpaper.png"
-
